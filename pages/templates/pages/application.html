@@ -1,7 +1,11 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="">
 <head>
     <title>{% block title %}My site{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'pages/styles/style.css' %}" />
 </head>
 <body>
     <div class="sidebar">
@@ -11,5 +15,7 @@
     <div class="content">
         {% block content %}{% endblock %}
     </div>
+
+    {% block footer_scripts %}{% endblock %}
 </body>
 </html>
