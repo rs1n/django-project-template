@@ -1,0 +1,14 @@
+{% extends 'pages/application.html' %}
+
+{% block title %}My site index{% endblock %}
+
+{% block sidebar %}
+    <a href="{% url 'pages:about' %}">About</a>
+{% endblock sidebar %}
+
+
+{% block content %}
+<p>
+    Hello from pages about page.
+</p>
+{% endblock content %}
