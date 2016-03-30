@@ -2,13 +2,17 @@
 
 var del = require('del');
 var gulp = require('gulp');
+// var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
     // images: 'client/img/**/*',
     // scripts: ['client/js/**/*.coffee', '!client/external/**/*.coffee'],
-    styles: 'assets/styles/**/*.scss'
+    styles: {
+        all: 'assets/styles/**/*.scss',
+        main: 'assets/styles/**/application.scss'
+    }
 };
 
 // Not all tasks need to use streams
@@ -18,10 +22,10 @@ gulp.task('clean', function() {
     return del(['static/pages']);
 });
 
-gulp.task('styles', function () {
-    return gulp.src(paths.styles)
+gulp.task('styles', ['clean'], function () {
+    return gulp.src(paths.styles.main)
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+            .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('static/pages'));
 });
@@ -30,7 +34,7 @@ gulp.task('styles', function () {
 gulp.task('watch', function() {
     // gulp.watch(paths.scripts, ['scripts']);
     // gulp.watch(paths.images, ['images']);
-    gulp.watch(paths.styles, ['styles']);
+    gulp.watch(paths.styles.all, ['styles']);
 });
 
 // The default task (called when you run `gulp` from cli)
