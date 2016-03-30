@@ -63,3 +63,6 @@ target/
 
 # SQLite3 databases
 *.sqlite3
+
+# Npm modules
+*/node_modules
