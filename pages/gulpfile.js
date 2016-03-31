@@ -29,10 +29,23 @@ var paths = {
     }
 };
 
-// Clean dest folder
-gulp.task('clean', function() {
-    return del(['static/pages']);
+// Clean dest scripts folder
+gulp.task('clean:scripts', function() {
+    return del(['static/pages/scripts']);
 });
+
+// Clean dest styles folder
+gulp.task('clean:styles', function() {
+    return del(['static/pages/styles']);
+});
+
+// Clean dest images folder
+gulp.task('clean:images', function() {
+    return del(['static/pages/images']);
+});
+
+// Clean dest folder
+gulp.task('clean', ['clean:scripts', 'clean:styles', 'clean:images']);
 
 // Copy scripts
 gulp.task('scripts:copy', ['clean'], function() {
@@ -70,7 +83,6 @@ gulp.task('styles', ['clean'], function () {
 // Copy all static images
 gulp.task('images', ['clean'], function() {
     return gulp.src(paths.images)
-        // Pass in options to the task
         .pipe(imagemin())
         .pipe(gulp.dest('static/pages/images'));
 });
