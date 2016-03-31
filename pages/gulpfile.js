@@ -1,10 +1,12 @@
 'use strict';
 
+var autoprefixer = require('autoprefixer');
 var del = require('del');
 var gulp = require('gulp');
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var imagemin = require('gulp-imagemin');
+var postCSS = require('gulp-postcss');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
@@ -59,6 +61,7 @@ gulp.task('styles', ['clean'], function () {
     return gulp.src(paths.styles.main)
         .pipe(sourcemaps.init())
             .pipe(sass().on('error', sass.logError))
+            .pipe(postCSS([autoprefixer()]))
             .pipe(cleanCSS())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('static/pages/styles'));
