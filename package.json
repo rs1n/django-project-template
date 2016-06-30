@@ -1,5 +1,5 @@
 {
-  "name": "myproject",
+  "name": "{{ project_name }}",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer": "^6.3.5",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.4",
-    "gulp-concat": "^2.6.0",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-postcss": "^6.1.0",
-    "gulp-sass": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3"
+    "autoprefixer": "^6.3",
+    "del": "^2.2",
+    "gulp": "^3.9",
+    "gulp-clean-css": "^2.0",
+    "gulp-concat": "^2.6",
+    "gulp-imagemin": "^3.0",
+    "gulp-postcss": "^6.1",
+    "gulp-sass": "^2.3",
+    "gulp-sourcemaps": "^1.6",
+    "gulp-uglify": "^1.5"
   }
 }
