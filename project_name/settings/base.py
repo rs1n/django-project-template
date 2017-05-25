@@ -119,5 +119,61 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Use custom user model.
+# Use a custom user model.
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
+
 AUTH_USER_MODEL = 'foo.User'
+
+# Configure logging.
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format':
+            '[%(levelname)s %(asctime)s %(name)s.%(funcName)s:%(lineno)d] %(message)s',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose',
+            'class': 'logging.StreamHandler',
+        },
+        'logfile_dev': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': './log/dev.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB per file.
+            'backupCount': 5,  # Keep 5 backup files.
+        },
+        'logfile_prod': {
+            'level': 'WARNING',
+            'filters': ['require_debug_false'],
+            'formatter': 'verbose',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': './log/prod.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB per file.
+            'backupCount': 5,  # Keep 5 backup files.
+        },
+    },
+    'loggers': {
+        'foo': {
+            'handlers': ['console', 'logfile_dev', 'logfile_prod'],
+            'level': 'DEBUG',
+        },
+    },
+}
