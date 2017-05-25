@@ -171,6 +171,11 @@ LOGGING = {
         },
     },
     'loggers': {
+        'django.request': {
+            'handlers': ['console', 'logfile_dev', 'logfile_prod'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
         'foo': {
             'handlers': ['console', 'logfile_dev', 'logfile_prod'],
             'level': 'DEBUG',
