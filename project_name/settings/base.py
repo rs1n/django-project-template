@@ -142,7 +142,7 @@ LOGGING = {
         'verbose': {
             'format':
             '[%(levelname)s %(asctime)s %(name)s.%(funcName)s:%(lineno)d] %(message)s',
-        }
+        },
     },
     'handlers': {
         'console': {
@@ -150,15 +150,6 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'formatter': 'verbose',
             'class': 'logging.StreamHandler',
-        },
-        'logfile_dev': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
-            'formatter': 'verbose',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': './log/dev.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB per file.
-            'backupCount': 5,  # Keep 5 backup files.
         },
         'logfile_prod': {
             'level': 'WARNING',
@@ -171,18 +162,20 @@ LOGGING = {
         },
     },
     'loggers': {
+        # Log sql queries.
         'django.db.backends': {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
+        # Log 4XX and 5XX requests.
         'django.request': {
-            'handlers': ['console', 'logfile_dev', 'logfile_prod'],
+            'handlers': ['console', 'logfile_prod'],
             'level': 'WARNING',
             'propagate': False,
         },
         'foo': {
-            'handlers': ['console', 'logfile_dev', 'logfile_prod'],
+            'handlers': ['console', 'logfile_prod'],
             'level': 'DEBUG',
         },
     },
