@@ -83,27 +83,23 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -116,8 +112,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/{{ docs_version }}/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Use a custom user model.
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
@@ -151,18 +147,16 @@ LOGGING = {
             'formatter': 'verbose',
             'class': 'logging.StreamHandler',
         },
-        'logfile_prod': {
-            'level': 'WARNING',
+        'logfile_production': {
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'formatter': 'verbose',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': './log/prod.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB per file.
-            'backupCount': 5,  # Keep 5 backup files.
+            'class': 'logging.FileHandler',
+            'filename': './log/production.log',
         },
     },
     'loggers': {
-        # Log sql queries.
+        # Log SQL queries for debug mode.
         'django.db.backends': {
             'handlers': ['console'],
             'level': 'DEBUG',
@@ -170,12 +164,13 @@ LOGGING = {
         },
         # Log 4XX and 5XX requests.
         'django.request': {
-            'handlers': ['console', 'logfile_prod'],
+            'handlers': ['console', 'logfile_production'],
             'level': 'WARNING',
             'propagate': False,
         },
+        # Log custom applications.
         'foo': {
-            'handlers': ['console', 'logfile_prod'],
+            'handlers': ['console', 'logfile_production'],
             'level': 'DEBUG',
         },
     },
